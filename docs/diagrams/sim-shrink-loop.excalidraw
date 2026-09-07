@@ -10,7 +10,7 @@
       "y": 20,
       "width": 880,
       "height": 62,
-      "text": "seed-sim - one seed in, a minimal reproducer out",
+      "text": "deterministic-sim-testing - one seed in, a minimal reproducer out",
       "fontSize": 25,
       "fontFamily": 1,
       "strokeColor": "#000000",

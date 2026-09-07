@@ -1,4 +1,4 @@
-"""A deliberately buggy workload, used to show seed-sim finding + shrinking a bug.
+"""A deliberately buggy workload, used to show deterministic-sim-testing finding + shrinking a bug.
 
 A coordinator sets a flag on two replicas with a single fire-and-forget message
 each - and, crucially, never retries. That missing retry is the bug: if the

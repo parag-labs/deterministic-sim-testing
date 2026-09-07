@@ -1,6 +1,6 @@
 """A small, fully deterministic PRNG (splitmix64).
 
-The whole point of seed-sim is that a run is a pure function of one 64-bit seed,
+The whole point of deterministic-sim-testing is that a run is a pure function of one 64-bit seed,
 so the randomness has to be reproducible and portable - not `random.random()`,
 whose stream can shift between interpreter versions. splitmix64 is tiny, well
 distributed, and trivial to reimplement in another language later if the ports
