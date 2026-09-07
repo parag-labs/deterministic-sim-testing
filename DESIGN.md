@@ -26,7 +26,7 @@ it does, you can't reproduce it *again*. Goals:
 
 ![simulate and shrink loop](docs/diagrams/sim-shrink-loop.png)
 
-*(Source: [`docs/diagrams/sim-shrink-loop.excalidraw`](docs/diagrams/sim-shrink-loop.excalidraw) - editable in [excalidraw](https://aka.ms/excalidraw).)*
+*(The same diagram renders inline as Mermaid in the [README](README.md#how-it-works); this PNG is a static export.)*
 
 
 The engine is a single-threaded discrete-event loop over an integer virtual
