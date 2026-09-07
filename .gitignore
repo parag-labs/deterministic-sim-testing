@@ -6,3 +6,11 @@ __pycache__/
 venv/
 build/
 dist/
+
+# .NET
+bin/
+obj/
+
+# Java
+target/
+*.class

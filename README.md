@@ -47,6 +47,19 @@ pytest                          # determinism, search, and shrinking tests
 PYTHONPATH=. python bench/benchmark.py   # throughput + replay-overhead numbers
 ```
 
+## Three languages, one behavior
+
+The whole engine — the splitmix64 PRNG, the discrete-event simulator, the fault
+model, and ddmin shrinking — plus the worked example and the same 8 tests, in each
+language:
+
+| Language | Tests | Run |
+|----------|:-----:|-----|
+| Python | 8 | `pytest -q` |
+| C# (.NET 10) | 8 | `cd csharp && dotnet test` |
+| Java (17+) | 8 | `cd java && mvn test` |
+
+
 ## Design and numbers
 
 - **[DESIGN.md](DESIGN.md)** — why single-threaded virtual time, where determinism could leak, and the honest non-goals (no real syscall interception; this simulates a model of your system, not the raw binary).
@@ -79,13 +92,15 @@ flowchart LR
 
 ```
 deterministic-sim-testing/
-├── seedsim/            the engine
+├── seedsim/            the engine (Python)
 │   ├── rng.py          the one seeded PRNG every source of nondeterminism flows through
 │   ├── faults.py       the fault model (latency, loss, crashes, partitions)
 │   ├── sim.py          the deterministic scheduler over virtual time
 │   ├── network.py      the simulated message network
 │   └── shrink.py       ddmin trace shrinking to a minimal failing schedule
 ├── examples/           a deliberately buggy worked example you can watch fail and shrink
+├── csharp/             the same engine + example, ported to .NET 10 (xUnit)
+├── java/               the same, in Java 17+ (JUnit / Maven)
 ├── tests/              determinism + shrink tests
 ├── bench/              benchmark.py - event throughput and replay cost
 ├── DESIGN.md           virtual time, where determinism can leak, the non-goals
