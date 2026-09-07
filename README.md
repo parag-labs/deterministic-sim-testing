@@ -52,6 +52,31 @@ PYTHONPATH=. python bench/benchmark.py   # throughput + replay-overhead numbers
 - **[DESIGN.md](DESIGN.md)** — why single-threaded virtual time, where determinism could leak, and the honest non-goals (no real syscall interception; this simulates a model of your system, not the raw binary).
 - **[BENCHMARKS.md](BENCHMARKS.md)** — event throughput and the measured cost of replay, produced by `bench/benchmark.py` on this machine.
 
+## How it works
+
+```mermaid
+flowchart LR
+  classDef proc fill:#4a90e2,stroke:#2c5aa0,color:#fff
+  classDef good fill:#27ae60,stroke:#1e8449,color:#fff
+  classDef bad fill:#e74c3c,stroke:#c0392b,color:#fff
+  classDef work fill:#8e44ad,stroke:#6c3483,color:#fff
+  SEED["64-bit seed"]:::proc
+  WL["workload<br/>(node state machines)"]:::proc
+  FA["fault schedule<br/>(partitions / crashes)"]:::proc
+  SIM["Simulator - 1 thread, virtual time<br/>seeded splitmix64 PRNG<br/>event heap - network delay/drop/partition"]:::work
+  TRACE["event trace<br/>(fully ordered, hashable)"]:::proc
+  INV{"invariant<br/>holds?"}:::work
+  PASS["pass - try next seed"]:::good
+  SHRINK["ddmin shrink<br/>drop faults, keep failing"]:::bad
+  REPRO["minimal reproducer<br/>(seed + a few faults)"]:::good
+  SEED --> SIM
+  WL --> SIM
+  FA --> SIM
+  SIM --> TRACE --> INV
+  INV -->|yes| PASS
+  INV -->|no - failing seed| SHRINK --> REPRO
+```
+
 ## Layout
 
 ```
