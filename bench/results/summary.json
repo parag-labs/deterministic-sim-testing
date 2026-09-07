@@ -1,0 +1,8 @@
+{
+  "scenarios": 20000,
+  "events": 40000,
+  "runs_per_sec": 25305.1,
+  "events_per_sec": 50610.2,
+  "replay_overhead_pct": 0.01,
+  "avg_events_per_scenario": 2.0
+}
