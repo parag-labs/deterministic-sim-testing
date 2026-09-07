@@ -88,7 +88,6 @@ deterministic-sim-testing/
 ├── examples/           a deliberately buggy worked example you can watch fail and shrink
 ├── tests/              determinism + shrink tests
 ├── bench/              benchmark.py - event throughput and replay cost
-├── docs/diagrams/      architecture diagrams
 ├── DESIGN.md           virtual time, where determinism can leak, the non-goals
 └── BENCHMARKS.md       reproducible numbers
 ```
