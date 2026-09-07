@@ -56,25 +56,23 @@ PYTHONPATH=. python bench/benchmark.py   # throughput + replay-overhead numbers
 
 ```mermaid
 flowchart LR
-  classDef proc fill:#4a90e2,stroke:#2c5aa0,color:#fff
-  classDef good fill:#27ae60,stroke:#1e8449,color:#fff
-  classDef bad fill:#e74c3c,stroke:#c0392b,color:#fff
-  classDef work fill:#8e44ad,stroke:#6c3483,color:#fff
+  classDef proc fill:#eff6ff,stroke:#3b82f6,color:#1e3a8a
+  classDef good fill:#f0fdf4,stroke:#22c55e,color:#14532d
+  classDef bad fill:#fef2f2,stroke:#ef4444,color:#7f1d1d
+  classDef work fill:#faf5ff,stroke:#a855f7,color:#581c87
   SEED["64-bit seed"]:::proc
-  WL["workload<br/>(node state machines)"]:::proc
-  FA["fault schedule<br/>(partitions / crashes)"]:::proc
-  SIM["Simulator - 1 thread, virtual time<br/>seeded splitmix64 PRNG<br/>event heap - network delay/drop/partition"]:::work
-  TRACE["event trace<br/>(fully ordered, hashable)"]:::proc
-  INV{"invariant<br/>holds?"}:::work
-  PASS["pass - try next seed"]:::good
-  SHRINK["ddmin shrink<br/>drop faults, keep failing"]:::bad
-  REPRO["minimal reproducer<br/>(seed + a few faults)"]:::good
+  IN["Workload + faults"]:::proc
+  SIM["Simulator<br/>(virtual time)"]:::work
+  TRACE["Event trace"]:::proc
+  INV{"Invariant<br/>holds?"}:::work
+  PASS["Next seed"]:::good
+  SHRINK["Shrink (ddmin)"]:::bad
+  REPRO["Minimal repro"]:::good
   SEED --> SIM
-  WL --> SIM
-  FA --> SIM
+  IN --> SIM
   SIM --> TRACE --> INV
   INV -->|yes| PASS
-  INV -->|no - failing seed| SHRINK --> REPRO
+  INV -->|no| SHRINK --> REPRO
 ```
 
 ## Layout
