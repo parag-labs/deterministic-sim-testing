@@ -26,7 +26,7 @@ it does, you can't reproduce it *again*. Goals:
 
 ![simulate and shrink loop](docs/diagrams/sim-shrink-loop.png)
 
-*(The same diagram renders inline as Mermaid in the [README](README.md#how-it-works); this PNG is a static export.)*
+*(The [README](README.md#how-it-works) sketches this flow inline as Mermaid; the PNG above is the detailed view - the search loop, the ddmin shrink cycle, and the determinism invariants that let a failing seed replay forever.)*
 
 
 The engine is a single-threaded discrete-event loop over an integer virtual
