@@ -28,6 +28,13 @@ it does, you can't reproduce it *again*. Goals:
 
 *(The [README](README.md#how-it-works) sketches this flow inline as Mermaid; the PNG above is the detailed view - the search loop, the ddmin shrink cycle, and the determinism invariants that let a failing seed replay forever.)*
 
+<details>
+<summary>Before the redraw - the earlier version of this diagram</summary>
+
+![simulate and shrink loop, before the redraw](docs/diagrams/sim-shrink-loop-v1.png)
+
+</details>
+
 
 The engine is a single-threaded discrete-event loop over an integer virtual
 clock. There are no OS threads and no wall-clock reads anywhere in the core. Every
