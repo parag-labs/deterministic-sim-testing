@@ -47,17 +47,27 @@ pytest                          # determinism, search, and shrinking tests
 PYTHONPATH=. python bench/benchmark.py   # throughput + replay-overhead numbers
 ```
 
-## Three languages, one behavior
+## Six languages, one behavior
 
 The whole engine — the splitmix64 PRNG, the discrete-event simulator, the fault
-model, and ddmin shrinking — plus the worked example and the same 8 tests, in each
-language:
+model, and ddmin shrinking — plus the worked example, ported to each language.
+Every port reproduces the *same* splitmix64 stream and the *same* event traces, so
+a seed found in one language replays identically in all six:
 
 | Language | Tests | Run |
 |----------|:-----:|-----|
 | Python | 8 | `pytest -q` |
 | C# (.NET 10) | 8 | `cd csharp && dotnet test` |
 | Java (17+) | 8 | `cd java && mvn test` |
+| Go (1.22+) | 23 | `cd go && go test ./...` |
+| Rust | 29 | `cd rust && cargo test` |
+| TypeScript | 29 | `cd ts && npm test` |
+
+Two subtleties every port pins down, because getting them wrong would silently
+desync the shared PRNG stream: boundary `chance()` values (`p ≤ 0` or `p ≥ 1`)
+short-circuit *without* consuming a draw, and `random_faults` still consumes both
+node draws even when it discards a self-partition (`a == b`), keeping the stream
+aligned across languages.
 
 
 ## Design and numbers
@@ -101,6 +111,9 @@ deterministic-sim-testing/
 ├── examples/           a deliberately buggy worked example you can watch fail and shrink
 ├── csharp/             the same engine + example, ported to .NET 10 (xUnit)
 ├── java/               the same, in Java 17+ (JUnit / Maven)
+├── go/                 the same, in Go (go test)
+├── rust/               the same, in Rust (cargo test / clippy)
+├── ts/                 the same, in TypeScript (vitest)
 ├── tests/              determinism + shrink tests
 ├── bench/              benchmark.py - event throughput and replay cost
 ├── DESIGN.md           virtual time, where determinism can leak, the non-goals

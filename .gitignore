@@ -14,3 +14,13 @@ obj/
 # Java
 target/
 *.class
+
+# Go
+go/bin/
+
+# Rust
+rust/target/
+rust/Cargo.lock
+
+# Node / TypeScript
+node_modules/

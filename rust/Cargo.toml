@@ -1,0 +1,12 @@
+[package]
+name = "deterministic-sim-testing"
+version = "0.1.0"
+edition = "2021"
+description = "Deterministic simulation testing for distributed code (Rust port)."
+license = "MIT"
+
+[lib]
+name = "deterministic_sim_testing"
+path = "src/lib.rs"
+
+[dependencies]
